@@ -34,10 +34,6 @@ class CreateImage
       montage << "./tmp/#{@uuid}.jpg"
     end
 
-    # 画像サイズをOGP用に縮小
-    # image = MiniMagick::Image.new("./tmp/#{@uuid}.jpg")
-    # image.resize "630x630"
-
     tmp_images.each do |image|
       File.delete(image)
     end
