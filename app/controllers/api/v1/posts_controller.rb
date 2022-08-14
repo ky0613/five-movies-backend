@@ -8,7 +8,6 @@ class Api::V1::PostsController < ApplicationController
     post.image = File.open(created_image_path)
 
     if post.save
-
       params[:movie_ids].each do |id|
         post.movies.create(movie_id: id)
       end
