@@ -25,7 +25,7 @@ class Api::V1::PostsController < ApplicationController
     post = Post.find_by(uuid: params[:uuid])
     movies = post.movies.all
     get_movies = GetMovieData.get_movies_data_from_tmdb(movies)
-    render json: {movies: get_movies, image_url: post.image.url}
+    render json: { movies: get_movies, post_id: post.id }
   end
 
   private
