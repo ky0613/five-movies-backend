@@ -1,7 +1,12 @@
 class Api::V1::PostsController < ApplicationController
 
-  def create
+  def index
+    posts = Post.order(created_at: :desc)
 
+    render json: posts
+  end
+
+  def create
     created_image_path = CreateImage.new(params[:image_paths], params[:uuid]).create_image
 
     post = Post.new(post_params)
@@ -33,4 +38,5 @@ class Api::V1::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:uuid, :name)
   end
+
 end
