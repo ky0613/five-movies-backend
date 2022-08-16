@@ -1,6 +1,7 @@
-  require 'faraday'
-  require 'faraday/net_http'
-  Faraday.default_adapter = :net_http
+require 'faraday'
+require 'faraday/net_http'
+Faraday.default_adapter = :net_http
+
 class GetMovieData
 
   BASE_URL = "https://api.themoviedb.org/3"
@@ -10,8 +11,9 @@ class GetMovieData
     @connection = Faraday.new(ssl: { ca_path: "/opt/homebrew/etc/openssl@3" }, params: { api_key: @api_key, language: "ja" })
   end
 
-  def search_movies(search_word)
+  def search_movies(search_word, page)
     @connection.params[:query] = search_word
+    @connection.params[:page] = page
     response = @connection.get("#{BASE_URL}/search/movie")
     response.body
   end
@@ -28,13 +30,12 @@ class GetMovieData
       GetMovieData.new
     end
 
-    def search_movies(search_word)
-      client.search_movies(search_word)
+    def search_movies(search_word, page)
+      client.search_movies(search_word, page)
     end
 
     def get_movies_data_from_tmdb(movies)
       client.get_movies_data_from_tmdb(movies)
     end
   end
-
 end
