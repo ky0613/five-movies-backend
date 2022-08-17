@@ -14,7 +14,7 @@ class GetMovieData
   def search_movies(search_word, page)
     @connection.params[:query] = search_word
     @connection.params[:page] = page
-    response = @connection.get("#{BASE_URL}/search/movie")
+    response = @connection.get("#{BASE_URL}/search/multi")
     response.body
   end
 
