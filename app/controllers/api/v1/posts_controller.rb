@@ -1,7 +1,7 @@
 class Api::V1::PostsController < ApplicationController
 
   def index
-    posts = Post.order(created_at: :desc).page(params[:page]).per(20)
+    posts = Post.order(created_at: :desc).page(params[:page]).per(10)
 
     render json: posts, status: :ok
   end
@@ -16,8 +16,9 @@ class Api::V1::PostsController < ApplicationController
     post.image = File.open(created_image_path)
 
     if post.save(context: :post_image_setup)
-      params[:movie_ids].each do |id|
-        post.movies.create(movie_id: id)
+      params[:movies].each do |movie|
+        movie_instance = post.movies.new(movie_id: movie[:id], title: movie[:title])
+        movie_instance.save!
       end
 
       # 一時画像ファイルを削除
@@ -34,6 +35,11 @@ class Api::V1::PostsController < ApplicationController
     movies = post.movies.all
     get_movies = GetMovieData.get_movies_data_from_tmdb(movies)
     render json: { movies: get_movies, post: post }, status: :ok
+  end
+
+  def search
+    posts = Movie.where(title: params[:search_title]).map(&:post)
+    render json: posts, status: :ok
   end
 
   private
