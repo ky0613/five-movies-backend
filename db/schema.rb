@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_200728) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_19_171326) do
   create_table "movies", force: :cascade do |t|
     t.string "movie_id"
     t.integer "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
     t.index ["post_id"], name: "index_movies_on_post_id"
   end
 

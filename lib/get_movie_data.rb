@@ -25,6 +25,13 @@ class GetMovieData
                 end
   end
 
+  def get_movies_data_from_tmdb_for_ranking(movie_ids)
+    get_movies = movie_ids.map do |id|
+                  response = @connection.get("#{BASE_URL}/movie/#{id}")
+                  JSON.parse(response.body)
+                end
+  end
+
   class << self
     def client
       GetMovieData.new
@@ -36,6 +43,10 @@ class GetMovieData
 
     def get_movies_data_from_tmdb(movies)
       client.get_movies_data_from_tmdb(movies)
+    end
+
+    def get_movies_data_from_tmdb_for_ranking(movie_ids)
+      client.get_movies_data_from_tmdb_for_ranking(movie_ids)
     end
   end
 end
