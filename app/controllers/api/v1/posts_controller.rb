@@ -38,7 +38,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def search
-    posts = Movie.where(title: params[:search_title]).map(&:post)
+    posts = Movie.preload(:post).where(title: params[:search_title]).map(&:post)
     render json: posts, status: :ok
   end
 
