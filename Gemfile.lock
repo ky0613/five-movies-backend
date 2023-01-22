@@ -148,6 +148,7 @@ GEM
     minitest (5.16.2)
     msgpack (1.5.4)
     multi_json (1.15.0)
+    mysql2 (0.5.4)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -243,6 +244,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   kaminari
   mini_magick (~> 4.9.0)
+  mysql2
   pry-byebug
   puma (~> 5.0)
   rack-cors
